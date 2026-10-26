@@ -1,4 +1,3 @@
-
 warehouse = {
     "Receiving": {"Aisle1": 40, "Aisle2": 70},
     "Aisle1": {"Aisle2": 30, "Packing Station": 90},
@@ -16,6 +15,7 @@ heuristic = {
 def a_star(start, goal):
     open_list = [start]
     visited = []
+    nodes_explored = 0
     parent = {start: None}
     cost = {start: 0}
 
@@ -27,6 +27,7 @@ def a_star(start, goal):
             continue
 
         visited.append(current)
+        nodes_explored += 1
 
         if current == goal:
             path = []
@@ -35,8 +36,10 @@ def a_star(start, goal):
                 current = parent[current]
 
             path.reverse()
+
             print("Path found by A*:", path)
             print("Total cost of this path:", cost[goal])
+            print("Total nodes explored:", nodes_explored)
             return
 
         for neighbor, distance in warehouse[current].items():
